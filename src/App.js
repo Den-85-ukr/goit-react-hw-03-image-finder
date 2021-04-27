@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Button from './components/Button';
+import ScrollUPButton from './components/ScrollUPButton';
 import imagesApi from './components/services/image-api';
 import Modal from './components/Modal';
 
@@ -91,8 +92,11 @@ class App extends Component {
           </div>
         )}
 
-        {shouldRenderLoadMoreButton && (<Button loadMore={this.fetchImages} />
-           
+        {shouldRenderLoadMoreButton && (
+          <div className={styles.ButtonContainer}>            
+            <Button loadMore={this.fetchImages} />
+            <ScrollUPButton />
+          </div>
         )}
       </div>
     );
