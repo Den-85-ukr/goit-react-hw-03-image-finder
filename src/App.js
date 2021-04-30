@@ -16,7 +16,7 @@ class App extends Component {
     currentPage: 1,
     searchQuery: '',
     isLoading: false,
-    //showModal: false,
+    showModal: false,
     selectImage: {},
     error: null,
   };
@@ -25,7 +25,19 @@ class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.fetchImages();
     }
-  }
+
+    if (
+      prevState.images !== this.state.images &&
+      this.state.images.length > 20
+    ) {
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 500);
+    }
+  };
 
   onChangeQuery = query => {
     this.setState({
@@ -51,7 +63,7 @@ class App extends Component {
         }));
       })
       .catch(error => this.setState({ error }))
-      .finally(() => this.setState({ isLoading: false }));
+      .finally(() => this.setState({ isLoading: false }));     
   };
 
   toggleModal = (url, alt) => {
@@ -93,7 +105,7 @@ class App extends Component {
         )}
 
         {shouldRenderLoadMoreButton && (
-          <div className={styles.ButtonContainer}>            
+          <div className={styles.ButtonContainer}>
             <Button loadMore={this.fetchImages} />
             <ScrollUPButton />
           </div>
